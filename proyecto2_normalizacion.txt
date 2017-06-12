@@ -1,0 +1,220 @@
+-- MySQL Workbench Forward Engineering
+
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+Schema mydb
+Schema mydb
+
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `mydb` ;
+
+Table `mydb`.`Proveedores`
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Proveedores` (
+  
+`id_Proveedores` INT NOT NULL COMMENT '',
+  
+`id_productos` INT NOT NULL COMMENT '',
+  `
+id_pedidos` INT NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_Proveedores`, `id_productos`, `id_pedidos`)  COMMENT '')
+
+ENGINE = InnoDB;
+
+Table `mydb`.`Datos_Proveedores`
+CREATE TABLE IF NOT EXISTS `mydb`.`Datos_Proveedores` (
+  
+`id_proveedor` INT NOT NULL COMMENT '',
+  
+`Nombre` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Direccion` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Telefono` VARCHAR(45) NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_proveedor`)  COMMENT '',
+  
+CONSTRAINT `fk_Datos_Proveedores`
+    FOREIGN KEY (`id_proveedor`)
+    
+REFERENCES `mydb`.`Proveedores` (`id_Proveedores`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+Table `mydb`.`Productos
+CREATE TABLE IF NOT EXISTS `mydb`.`Datos_Productos` (
+  
+`id_Productos` INT NOT NULL COMMENT '',
+  
+`Nombre_Producto` VARCHAR(45) NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_Productos`)  COMMENT '',
+ 
+ CONSTRAINT `fk_Datos_Productos`
+    FOREIGN KEY (`id_Productos`)
+    
+REFERENCES `mydb`.`Productos` (`id_Productos`)
+   
+ ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+
+Table `mydb`.`Empresa`
+CREATE TABLE IF NOT EXISTS `mydb`.`Empresa` (
+  
+`id_Empresa` INT NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_Empresa`)  COMMENT '',
+ 
+ CONSTRAINT `fk_empresa`
+    
+FOREIGN KEY (`id_Empresa`)
+    
+REFERENCES `mydb`.`Productos` (`id_Productos`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+
+Table `mydb`.`Datos_empresa`
+CREATE TABLE IF NOT EXISTS `mydb`.`Datos_empresa` (
+  
+`id_empresa` INT NOT NULL COMMENT '',
+  
+`Nombre` VARCHAR(45) NOT NULL COMMENT '',
+  
+`telefono` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Direccion` VARCHAR(45) NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_empresa`)  COMMENT '',
+  
+CONSTRAINT `fk_Datos_empresa`
+    
+FOREIGN KEY (`id_empresa`)
+    R
+EFERENCES `mydb`.`Empresa` (`id_Empresa`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+
+Table `mydb`.`Ventas`
+CREATE TABLE IF NOT EXISTS `mydb`.`Ventas` (
+  
+`id_Ventas` INT NOT NULL COMMENT '',
+  
+`Cliente` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Monto_final` VARCHAR(45) NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_Ventas`)  COMMENT '',
+  
+CONSTRAINT `fk_ventas`
+    FOREIGN KEY (`id_Ventas`)
+    
+REFERENCES `mydb`.`Empresa` (`id_Empresa`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+
+Table `mydb`.`Guardar`
+CREATE TABLE IF NOT EXISTS `mydb`.`Guardar` (
+  
+`Monto_total` INT NOT NULL COMMENT '',
+  
+PRIMARY KEY (`Monto_total`)  COMMENT '',
+  
+CONSTRAINT `fk_guardar`
+   
+ FOREIGN KEY (`Monto_total`)
+    
+REFERENCES `mydb`.`Ventas` (`id_Ventas`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+Table `mydb`.`Clientes`
+CREATE TABLE IF NOT EXISTS `mydb`.`Clientes` (
+  
+`id_clientes` INT NOT NULL COMMENT '',
+  
+`Nombre` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Telefono` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Direccion` VARCHAR(45) NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_clientes`)  COMMENT '',
+  
+CONSTRAINT `fk_clientes`
+    
+FOREIGN KEY (`id_clientes`)
+    
+REFERENCES `mydb`.`Productos` (`id_Productos`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+Table `mydb`.`pedidos`
+CREATE TABLE IF NOT EXISTS `mydb`.`pedidos` (
+  
+`id_pedidos` INT NOT NULL COMMENT '',
+  
+`id_cliente` INT NOT NULL COMMENT '',
+  
+`id_producto` INT NOT NULL COMMENT '',
+ 
+ PRIMARY KEY (`id_pedidos`, `id_cliente`, `id_producto`)  COMMENT '',
+  
+CONSTRAINT `fk_pedidos`
+    FOREIGN KEY (`id_pedidos`)
+    
+REFERENCES `mydb`.`Clientes` (`id_clientes`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`` (
+)
+ENGINE = InnoDB;
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

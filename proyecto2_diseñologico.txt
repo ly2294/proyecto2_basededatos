@@ -1,0 +1,208 @@
+-- MySQL Workbench Forward Engineering
+
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+
+
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `mydb`;
+Table `mydb`.`Pedidos`
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Pedidos` (
+  
+`id_Pedidos` INT NOT NULL COMMENT '',
+  
+`id_cliente` INT NOT NULL COMMENT '',
+  
+`id_producto` INT NOT NULL COMMENT '',
+  
+`Descripcion` TEXT(200) NOT NULL COMMENT '',
+ 
+ PRIMARY KEY (`id_Pedidos`, `id_cliente`, `id_producto`)  COMMENT '')
+
+ENGINE = InnoDB;
+
+
+
+
+ Table `mydb`.`Clientes`
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Clientes` (
+  
+`id_clientes` INT NOT NULL COMMENT '',
+  
+`Nombres` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Telefono` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Direccion` VARCHAR(45) NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_clientes`)  COMMENT '',
+  
+CONSTRAINT `fk_clientes`
+   
+ FOREIGN KEY (`id_clientes`)
+    
+REFERENCES `mydb`.`Pedidos` (`id_producto`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+ Table `mydb`.`Empresa`
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Empresa` (
+  
+`id_Empresa` INT NOT NULL COMMENT '',
+  
+`Nombre` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Telefono` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Direccion` VARCHAR(45) NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_Empresa`)  COMMENT '',
+ 
+ CONSTRAINT `fk_empresa`
+   
+ FOREIGN KEY (`id_Empresa`)
+    
+REFERENCES `mydb`.`Clientes` (`id_clientes`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+Table `mydb`.`Productos`
+CREATE TABLE IF NOT EXISTS `mydb`.`Productos` (
+  
+`id_Productos` INT NOT NULL COMMENT '',
+  
+`id_pedido` INT NOT NULL COMMENT '',
+  
+`id_proveedor` INT NOT NULL COMMENT '',
+  
+`Nom_Producto` VARCHAR(45) NOT NULL COMMENT '',
+ 
+ PRIMARY KEY (`id_Productos`, `id_pedido`, `id_proveedor`)  COMMENT '',
+  
+CONSTRAINT `fk_productos`
+    
+FOREIGN KEY (`id_Productos`)
+    
+REFERENCES `mydb`.`Empresa` (`id_Empresa`)
+    
+ON DELETE NO ACTION
+   
+ ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+Table `mydb`.`Proveedores`
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Proveedores` (
+  
+`id_Proveedores` INT NOT NULL COMMENT '',
+  
+`Nombre` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Direccion` VARCHAR(45) NOT NULL COMMENT '',
+ 
+ `Telefono` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Descripcion` TEXT(200) NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_Proveedores`)  COMMENT '',
+  
+CONSTRAINT `fk_proveedores`
+   
+ FOREIGN KEY (`id_Proveedores`)
+    
+REFERENCES `mydb`.`Productos` (`id_Productos`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+ Table `mydb`.`Guardar`
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Guardar` (
+  
+`Monto_total` INT NOT NULL COMMENT '',
+  
+`Cantidad_vendida` INT NOT NULL COMMENT '',
+  
+`Precio_Venta` INT NOT NULL COMMENT '',
+  
+PRIMARY KEY (`Monto_total`)  COMMENT '')
+
+ENGINE = InnoDB;
+
+
+
+
+Table `mydb`.`Ventas`
+CREATE TABLE IF NOT EXISTS `mydb`.`Ventas` (
+  
+`id_Ventas` INT NOT NULL COMMENT '',
+  
+`cliente` VARCHAR(45) NOT NULL COMMENT '',
+  
+`Monto_final` VARCHAR(45) NOT NULL COMMENT '',
+  
+PRIMARY KEY (`id_Ventas`)  COMMENT '',
+  
+CONSTRAINT `fk_ventas`
+    
+FOREIGN KEY (`id_Ventas`)
+    
+REFERENCES `mydb`.`Productos` (`id_pedido`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION,
+  
+CONSTRAINT `fk_ventas`
+   
+ FOREIGN KEY (`id_Ventas`)
+    
+REFERENCES `mydb`.`Guardar` (`Monto_total`)
+    
+ON DELETE NO ACTION
+    
+ON UPDATE NO ACTION)
+
+ENGINE = InnoDB;
+
+
+USE `mydb` ;
+
+
+Placeholder table for view `mydb`.`view1`
+
+CREATE TABLE IF NOT EXISTS `mydb`.`view1` (`id` INT);
+ View `mydb`.`view1`
+
+DROP TABLE IF EXISTS `mydb`.`view1`;
+USE `mydb`;
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
